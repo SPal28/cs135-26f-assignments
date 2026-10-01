@@ -33,8 +33,14 @@ def calc_root_mean_squared_error(y_N, yhat_N):
         .. math:
             rmse(y,\hat{y}) = \sqrt{\frac{1}{N} \sum_{n=1}^N (y_n - \hat{y}_n)^2}
     '''
+    #converts inputs to arrays to at least one dim
     y_N = np.atleast_1d(y_N)
     yhat_N = np.atleast_1d(yhat_N)
-    assert y_N.ndim == 1
-    assert y_N.shape == yhat_N.shape
-    return 0.0  # TODO fixme
+    assert y_N.ndim == 1, "its not 1"
+    assert y_N.shape == yhat_N.shape, "e"
+    # the size of the array will always be stored as the first element
+    N = y_N.shape[0]
+    # use the rsme equation to caculate rsme 
+    rmse = np.sqrt(np.sum((y_N - yhat_N) ** 2) / N)
+
+    return rmse

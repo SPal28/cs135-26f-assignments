@@ -80,7 +80,16 @@ class LeastSquaresLinearRegressor(object):
 
         # Hint: Use np.linalg.solve
         # Using np.linalg.inv may cause issues
-        pass # TODO fixme
+
+        # fill the first column in the matrix with 1s to make the bias (b) scalar
+        X_NF1 = np.hstack([np.ones((N, 1)), x_NF])
+        # solve the least-squares optimization problem
+        theta_F1 = np.linalg.solve(np.matmul(X_NF1.T, X_NF1),np.matmul(X_NF1.T, y_N))
+
+        self.b = theta_F1[0]
+        self.w_F = theta_F1[1:]
+
+        pass 
 
 
     def predict(self, x_MF):
@@ -97,8 +106,10 @@ class LeastSquaresLinearRegressor(object):
         yhat_M : 1D array, size M
             Each value is the predicted scalar for one example
         '''
-        # TODO FIX ME
-        return np.asarray([0.0])
+        yhat_M = self.b + np.matmul(x_MF, self.w_F)
+
+        
+        return yhat_M
 
 
 

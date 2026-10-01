@@ -81,7 +81,8 @@ class LeastSquaresQuadraticRegressor(LeastSquaresLinearRegressor):
         
         # Currently just calls your linear regression code.
         # You should be adding a quadratic feature
-        return super().fit(x_N[:,np.newaxis], y_N) # TODO fixme
+        x_NF = np.column_stack([x_N, x_N ** 2])
+        return super().fit(x_NF, y_N) 
 
 
     def predict(self, x_M):
@@ -99,7 +100,10 @@ class LeastSquaresQuadraticRegressor(LeastSquaresLinearRegressor):
         '''
         # Currently just calls your linear regression code.
         # You should be adding a quadratic feature
-        return super().predict(x_M[:,np.newaxis]) # TODO fixme
+
+        x_MF = np.column_stack([x_M, x_M ** 2])
+
+        return super().predict(x_MF) 
 
 
 def test_on_toy_data(N=100):

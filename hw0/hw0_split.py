@@ -68,9 +68,15 @@ def split_into_train_and_test(x_all_LF, frac_test=0.5, random_state=None):
     # Keep remaining M examples as training
     M = L - N
 
-    # TODO use the first M row ids in shuffled_ids_L to make x_train_MF
-    # TODO use the remaining N row ids to make x_test_NF
-    # HINT Use integer indexing in the lab notebook on numerical python
+    # retrives the first M shuffled row IDs allocated for the training set
+    training_ids = shuffled_ids_L[:M]
+    # uses the training row IDs to create the training array
+    x_train_MF = x_all_LF[training_ids]
 
-    # TODO return both x_train_MF and x_test_NF
-    return None, None
+    # retrives the remaining N shuffled row IDs
+    test_ids = shuffled_ids_L[M:]
+    # uses the test row IDs to create the test array
+    x_test_NF = x_all_LF[test_ids]
+
+    # returns both x_train_MF and x_test_NF
+    return x_train_MF, x_test_NF

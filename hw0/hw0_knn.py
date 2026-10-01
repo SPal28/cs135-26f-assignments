@@ -54,4 +54,16 @@ def calc_k_nearest_neighbors(data_NF, query_QF, K=1):
     #       At each q value, compute distances to all N neighbors
     #                        then find the K closest neighbors
     #                        then fill neighb_QKF with neighbors' features
-    return None
+    
+    for q in range(Q):        
+            # calculte the distance from the input to each data point using the
+            # given distance formula 
+            distance_array = np.sqrt(np.sum((data_NF - query_QF[q]) ** 2, axis=1))
+            # sorting the IDs from closest to farthest 
+            IDs_sorted = np.argsort(distance_array)
+            # retrive the IDs of closest data points (K)
+            closest_ids = IDs_sorted[:K]
+            # store these data points in an array
+            neighb_QKF[q] = data_NF[closest_ids]
+
+    return neighb_QKF
